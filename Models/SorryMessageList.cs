@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
-namespace chatBotV3.Models
+namespace TIIZChatBotV3.Models
 {
 	public class SorryMessageList
 	{

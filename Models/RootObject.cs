@@ -1,4 +1,4 @@
-﻿namespace chatBotV3.Models
+﻿namespace TIIZChatBotV3.Models
 {
 	using Newtonsoft.Json;
 	using System;

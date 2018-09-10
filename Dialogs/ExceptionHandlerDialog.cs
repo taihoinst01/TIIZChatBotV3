@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Diagnostics;
 
-namespace chatBotV3.Dialogs
+namespace TIIZChatBotV3.Dialogs
 {
     [Serializable]
     public class ExceptionHandlerDialog<T> : IDialog<object>

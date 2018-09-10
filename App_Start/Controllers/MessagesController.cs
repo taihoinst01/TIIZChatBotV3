@@ -9,19 +9,19 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
-using chatBotV3.DB;
-using chatBotV3.Models;
+using TIIZChatBotV3.DB;
+using TIIZChatBotV3.Models;
 using Newtonsoft.Json.Linq;
 
 using System.Configuration;
 using System.Web.Configuration;
-using chatBotV3.Dialogs;
+using TIIZChatBotV3.Dialogs;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using Microsoft.Bot.Builder.ConnectorEx;
 
-namespace chatBotV3
+namespace TIIZChatBotV3
 {
     [BotAuthentication]
     public class MessagesController : ApiController
@@ -383,7 +383,7 @@ namespace chatBotV3
                             {
                                 apiFlag = "";
                             }
-                            else if (MessagesController.cacheList.luisId.Equals("chatBotV3_luis_01") && MessagesController.cacheList.luisIntent.Contains("quot"))
+                            else if (MessagesController.cacheList.luisId.Equals("TIIZChatBotV3_luis_01") && MessagesController.cacheList.luisIntent.Contains("quot"))
                             {
                                 apiFlag = "QUOT";
                             }

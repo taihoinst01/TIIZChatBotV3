@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace chatBotV3.Models
+namespace TIIZChatBotV3.Models
 {
     public class UserHeroCard : Microsoft.Bot.Connector.HeroCard
     {

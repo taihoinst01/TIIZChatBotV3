@@ -1,4 +1,4 @@
-﻿using chatBotV3.Models;
+﻿using TIIZChatBotV3.Models;
 using Microsoft.Bot.Connector;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace chatBotV3.DB
+namespace TIIZChatBotV3.DB
 {
     public class DButil
     {

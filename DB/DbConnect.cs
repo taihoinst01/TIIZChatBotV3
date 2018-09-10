@@ -1,5 +1,5 @@
-﻿using chatBotV3.Dialogs;
-using chatBotV3.Models;
+﻿using TIIZChatBotV3.Dialogs;
+using TIIZChatBotV3.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Configuration;
 
-namespace chatBotV3.DB
+namespace TIIZChatBotV3.DB
 {
     public class DbConnect
     {

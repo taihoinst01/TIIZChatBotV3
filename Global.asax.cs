@@ -1,4 +1,4 @@
-﻿using chatBotV3;
+﻿using TIIZChatBotV3;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
 
-namespace chatBotV3
+namespace TIIZChatBotV3
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
