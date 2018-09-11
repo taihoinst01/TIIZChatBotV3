@@ -264,6 +264,38 @@ namespace TIIZChatBotV3
                     channelID = activity.ChannelId;
                     string orgMent = activity.Text;
 
+                    //현재위치사용승인
+
+                    if (queryStr.Contains("current location") || orgMent.Equals("현재 위치 사용 승인"))
+                    {
+                        DButil.HistoryLog("1111111");
+                        if (!queryStr.Contains(':'))
+                        {
+                            //첫번쨰 메세지 출력 x
+                            response = Request.CreateResponse(HttpStatusCode.OK);
+                            return response;
+                        }
+                        else
+                        {
+                            //위도경도에 따른 값 출력
+                            try
+                            {
+                                string regionStr = "";
+                                string location = queryStr;
+                                //테스트용
+                                //string location = "129.0929788:35.2686635";
+                                string[] location_result = location.Split(':');
+                                //regionStr = db.LocationValue(location_result[1], location_result[2]);
+                                DButil.HistoryLog("*regionStr : " + location_result[1] + " " + location_result[2]);
+
+                                queryStr = regionStr + " 시승센터";
+                            }
+                            catch
+                            {
+                                queryStr = "서울 시승센터";
+                            }
+                        }
+                    }
 
                     apiFlag = "COMMON";
 
