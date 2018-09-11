@@ -282,7 +282,7 @@ namespace TIIZChatBotV3
                             try
                             {
                                 string regionStr = "";
-                                string location = queryStr;
+                                string location = orgMent.Replace("current location:", "");
                                 //테스트용
                                 //string location = "129.0929788:35.2686635";
                                 string[] location_result = location.Split(':');
