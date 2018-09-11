@@ -884,10 +884,12 @@ namespace TIIZChatBotV3.DB
                 HistoryLog("4444");
                 //string rootPath = @"C:\DownloadedImageFromUrl";
                 string fileName = System.IO.Path.Combine(strPath, "test.png");
+                HistoryLog("5555");
                 image.Save(fileName);
+                HistoryLog("6666");
 
             }
-            HistoryLog("5555");
+            HistoryLog("7777");
 
         }
 
