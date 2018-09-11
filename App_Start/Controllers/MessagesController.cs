@@ -240,7 +240,7 @@ namespace TIIZChatBotV3
                     GetHeroCard_facebookMore(
                     "", "",
                     "현재 위치 사용 승인",
-                    new CardAction(ActionTypes.ImBack, "더 보기", value: MessagesController.queryStr))
+                    new CardAction(ActionTypes.ImBack, "현재 위치 사용 승인", value: MessagesController.queryStr))
                 );
                 await connector.Conversations.SendToConversationAsync(replyLocation);
 
