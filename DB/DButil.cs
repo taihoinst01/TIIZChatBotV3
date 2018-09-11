@@ -864,8 +864,8 @@ namespace TIIZChatBotV3.DB
         public static void mapSave(string url)
         {
             System.Drawing.Image image = DownloadImageFromUrl(url);
-            
-            string m_strLogPrefix = @"https://tiizchatbotv3web.azurewebsites.net\assets\image\map\";
+
+            string m_strLogPrefix = AppDomain.CurrentDomain.BaseDirectory + @"image\map\";
             string m_strLogExt = @".png";
             string strPath = String.Format("{0}{1}", m_strLogPrefix, m_strLogExt);
             string strDir = Path.GetDirectoryName(strPath);
@@ -884,12 +884,10 @@ namespace TIIZChatBotV3.DB
                 HistoryLog("4444");
                 //string rootPath = @"C:\DownloadedImageFromUrl";
                 string fileName = System.IO.Path.Combine(strPath, "test.png");
-                HistoryLog("5555");
                 image.Save(fileName);
-                HistoryLog("6666");
 
             }
-            HistoryLog("7777");
+            HistoryLog("5555");
 
         }
 

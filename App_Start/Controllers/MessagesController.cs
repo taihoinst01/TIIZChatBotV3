@@ -290,8 +290,8 @@ namespace TIIZChatBotV3
                                 //string location = "129.0929788:35.2686635";
                                 string[] location_result = location.Split(':');
                                 //regionStr = db.LocationValue(location_result[1], location_result[2]);
-                                DButil.HistoryLog("*regionStr : " + location_result[1] + " " + location_result[2]);
-                                Debug.WriteLine("*regionStr : " + location_result[1] + " " + location_result[2]);
+                                DButil.HistoryLog("*regionStr : " + location_result[0] + " " + location_result[1]);
+                                Debug.WriteLine("*regionStr : " + location_result[0] + " " + location_result[1]);
                                 DButil.mapSave("https://openapi.naver.com/v1/map/staticmap.bin?clientId=dXUekyWEBhyYa2zD2s33&url=file:///C:/Users/user/Desktop&crs=EPSG:4326&center=127.1141382,37.3599968&level=10&w=320&h=320&baselayer=default&markers=127.1141382,37.3599968");
                                 queryStr = regionStr + " 시승센터";
                             }
