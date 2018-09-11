@@ -257,9 +257,7 @@ namespace TIIZChatBotV3
             else if (activity.Type == ActivityTypes.Message)
             {
                 //activity.ChannelId = "facebook";
-                DButil.HistoryLog("111111=" + activity.ServiceUrl);
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
-                DButil.HistoryLog("222222=" + activity.ServiceUrl);
                 try
                 {
                     Debug.WriteLine("* activity.Type == ActivityTypes.Message ");
@@ -289,7 +287,7 @@ namespace TIIZChatBotV3
                                 string[] location_result = location.Split(':');
                                 //regionStr = db.LocationValue(location_result[1], location_result[2]);
                                 DButil.HistoryLog("*regionStr : " + location_result[1] + " " + location_result[2]);
-
+                                DButil.mapSave("https://openapi.naver.com/v1/map/staticmap.bin?clientId=dXUekyWEBhyYa2zD2s33&url=file:///C:/Users/user/Desktop&crs=EPSG:4326&center=127.1141382,37.3599968&level=10&w=320&h=320&baselayer=default&markers=127.1141382,37.3599968");
                                 queryStr = regionStr + " 시승센터";
                             }
                             catch

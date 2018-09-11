@@ -861,5 +861,58 @@ namespace TIIZChatBotV3.DB
             return heroCard.ToAttachment();
         }
 
+        public static void mapSave(string url)
+        {
+            System.Drawing.Image image = DownloadImageFromUrl(url);
+
+            string m_strLogPrefix = AppDomain.CurrentDomain.BaseDirectory + @"image\map\";
+            string m_strLogExt = @".png";
+            string strPath = String.Format("{0}{1}", m_strLogPrefix, m_strLogExt);
+            string strDir = Path.GetDirectoryName(strPath);
+            DirectoryInfo diDir = new DirectoryInfo(strDir);
+
+            if (!diDir.Exists)
+            {
+                diDir.Create();
+                diDir = new DirectoryInfo(strDir);
+            }
+
+            if (diDir.Exists)
+            {
+                //string rootPath = @"C:\DownloadedImageFromUrl";
+                string fileName = System.IO.Path.Combine(strPath, "test.png");
+                image.Save(fileName);
+
+            }
+
+            
+        }
+
+        public static System.Drawing.Image DownloadImageFromUrl(string imageUrl)
+        {
+            System.Drawing.Image image = null;
+
+            try
+            {
+                System.Net.HttpWebRequest webRequest = (System.Net.HttpWebRequest)System.Net.HttpWebRequest.Create(imageUrl);
+                webRequest.AllowWriteStreamBuffering = true;
+                webRequest.Timeout = 30000;
+
+                System.Net.WebResponse webResponse = webRequest.GetResponse();
+
+                System.IO.Stream stream = webResponse.GetResponseStream();
+
+                image = System.Drawing.Image.FromStream(stream);
+
+                webResponse.Close();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            return image;
+        }
+
     }
 }
