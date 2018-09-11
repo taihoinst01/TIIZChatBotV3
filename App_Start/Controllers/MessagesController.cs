@@ -257,7 +257,7 @@ namespace TIIZChatBotV3
             else if (activity.Type == ActivityTypes.Message)
             {
                 //activity.ChannelId = "facebook";
-                DButil.HistoryLog("현재위치사용승인");
+                DButil.HistoryLog("현재위치사용승인1");
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
                 try
                 {
@@ -266,8 +266,8 @@ namespace TIIZChatBotV3
                     string orgMent = activity.Text;
 
                     //현재위치사용승인
-                    DButil.HistoryLog("현재위치사용승인");
-                    if (queryStr.Contains("current location") || orgMent.Equals("현재 위치 사용 승인"))
+                    DButil.HistoryLog("현재위치사용승인2");
+                    if (queryStr.Contains("current location") || orgMent.Equals("현재위치사용승인"))
                     {
                         DButil.HistoryLog("1111111");
                         if (!queryStr.Contains(':'))
