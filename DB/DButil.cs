@@ -884,7 +884,7 @@ namespace TIIZChatBotV3.DB
             {
                 HistoryLog("4444");
                 //string rootPath = @"C:\DownloadedImageFromUrl";
-                string fileName = System.IO.Path.Combine(strDir, url2+ url1+".png");
+                string fileName = System.IO.Path.Combine(strDir, url2 +"."+ url1+".png");
                 image.Save(fileName);
 
             }
