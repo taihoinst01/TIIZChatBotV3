@@ -257,14 +257,15 @@ namespace TIIZChatBotV3
             else if (activity.Type == ActivityTypes.Message)
             {
                 //activity.ChannelId = "facebook";
+                DButil.HistoryLog("111111=" + activity.ServiceUrl);
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
+                DButil.HistoryLog("222222=" + activity.ServiceUrl);
                 try
                 {
-                    DButil.HistoryLog("orgMent1 : " + orgMent);
                     Debug.WriteLine("* activity.Type == ActivityTypes.Message ");
                     channelID = activity.ChannelId;
                     string orgMent = activity.Text;
-                    DButil.HistoryLog("orgMent2 : " + orgMent);
+
                     //현재위치사용승인
 
                     if (queryStr.Contains("current location") || orgMent.Equals("현재 위치 사용 승인"))
