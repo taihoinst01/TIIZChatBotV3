@@ -267,10 +267,10 @@ namespace TIIZChatBotV3
 
                     //현재위치사용승인
                     DButil.HistoryLog("현재위치사용승인2");
-                    if (queryStr.Contains("current location") || orgMent.Equals("현재위치사용승인"))
+                    if (orgMent.Contains("current location") || orgMent.Equals("현재위치사용승인"))
                     {
                         DButil.HistoryLog("1111111");
-                        if (!queryStr.Contains(':'))
+                        if (!orgMent.Contains(':'))
                         {
                             //첫번쨰 메세지 출력 x
                             response = Request.CreateResponse(HttpStatusCode.OK);
