@@ -871,21 +871,24 @@ namespace TIIZChatBotV3.DB
             string strDir = Path.GetDirectoryName(strPath);
             DirectoryInfo diDir = new DirectoryInfo(strDir);
 
+            HistoryLog("1111");
             if (!diDir.Exists)
             {
+                HistoryLog("2222");
                 diDir.Create();
                 diDir = new DirectoryInfo(strDir);
             }
-
+            HistoryLog("3333");
             if (diDir.Exists)
             {
+                HistoryLog("4444");
                 //string rootPath = @"C:\DownloadedImageFromUrl";
                 string fileName = System.IO.Path.Combine(strPath, "test.png");
                 image.Save(fileName);
 
             }
+            HistoryLog("5555");
 
-            
         }
 
         public static System.Drawing.Image DownloadImageFromUrl(string imageUrl)
