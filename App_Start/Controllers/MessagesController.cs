@@ -273,6 +273,7 @@ namespace TIIZChatBotV3
                         if (!orgMent.Contains(':'))
                         {
                             //첫번쨰 메세지 출력 x
+                            DButil.HistoryLog("222222");
                             response = Request.CreateResponse(HttpStatusCode.OK);
                             return response;
                         }
@@ -282,7 +283,9 @@ namespace TIIZChatBotV3
                             try
                             {
                                 string regionStr = "";
+                                DButil.HistoryLog("333333");
                                 string location = orgMent.Replace("current location:", "");
+                                DButil.HistoryLog("444444");
                                 //테스트용
                                 //string location = "129.0929788:35.2686635";
                                 string[] location_result = location.Split(':');
