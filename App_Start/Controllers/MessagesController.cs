@@ -269,11 +269,9 @@ namespace TIIZChatBotV3
                     DButil.HistoryLog("현재위치사용승인2");
                     if (orgMent.Contains("current location") || orgMent.Equals("현재위치사용승인"))
                     {
-                        DButil.HistoryLog("1111111");
                         if (!orgMent.Contains(':'))
                         {
                             //첫번쨰 메세지 출력 x
-                            DButil.HistoryLog("222222");
                             response = Request.CreateResponse(HttpStatusCode.OK);
                             return response;
                         }
@@ -283,16 +281,14 @@ namespace TIIZChatBotV3
                             try
                             {
                                 string regionStr = "";
-                                DButil.HistoryLog("333333");
                                 string location = orgMent.Replace("current location:", "");
-                                DButil.HistoryLog("444444");
                                 //테스트용
                                 //string location = "129.0929788:35.2686635";
                                 string[] location_result = location.Split(':');
                                 //regionStr = db.LocationValue(location_result[1], location_result[2]);
                                 DButil.HistoryLog("*regionStr : " + location_result[0] + " " + location_result[1]);
                                 Debug.WriteLine("*regionStr : " + location_result[0] + " " + location_result[1]);
-                                DButil.mapSave("https://openapi.naver.com/v1/map/staticmap.bin?clientId=dXUekyWEBhyYa2zD2s33&url=file:///C:/Users/user/Desktop&crs=EPSG:4326&center=127.1141382,37.3599968&level=10&w=320&h=320&baselayer=default&markers=127.1141382,37.3599968");
+                                DButil.mapSave(location_result[0], location_result[1]);
                                 queryStr = regionStr + " 시승센터";
                             }
                             catch

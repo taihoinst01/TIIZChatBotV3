@@ -861,8 +861,9 @@ namespace TIIZChatBotV3.DB
             return heroCard.ToAttachment();
         }
 
-        public static void mapSave(string url)
+        public static void mapSave(string url1, string url2)
         {
+            string url = "https://openapi.naver.com/v1/map/staticmap.bin?clientId=dXUekyWEBhyYa2zD2s33&url=file:///C:/Users/user/Desktop&crs=EPSG:4326&center=" + url2 + "," + url1 + "&level=10&w=320&h=320&baselayer=default&markers="+ url2 +"," + url1;
             System.Drawing.Image image = DownloadImageFromUrl(url);
 
             string m_strLogPrefix = AppDomain.CurrentDomain.BaseDirectory + @"image\map\";
@@ -883,7 +884,7 @@ namespace TIIZChatBotV3.DB
             {
                 HistoryLog("4444");
                 //string rootPath = @"C:\DownloadedImageFromUrl";
-                string fileName = System.IO.Path.Combine(strPath, "test.png");
+                string fileName = System.IO.Path.Combine(strDir, url2+ url1+".png");
                 image.Save(fileName);
 
             }
