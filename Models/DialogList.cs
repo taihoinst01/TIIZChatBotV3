@@ -32,5 +32,7 @@ namespace TIIZChatBotV3.Models
         public string cardValue;
         //card
         public List<CardList> dialogCard;
+        //2018-04-25 : 제스처 추가
+        public int gesture;
     }
 }

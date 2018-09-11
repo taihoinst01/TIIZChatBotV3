@@ -196,6 +196,7 @@ namespace TIIZChatBotV3.DB
                 cmd.CommandText += " 	A.DLG_TYPE,                             ";
                 cmd.CommandText += " 	A.DLG_ORDER_NO,                         ";
                 cmd.CommandText += " 	A.DLG_GROUP                             ";
+                cmd.CommandText += " 	B.GESTURE                               ";
                 cmd.CommandText += " FROM TBL_DLG A, TBL_DLG_RELATION_LUIS B    ";
                 cmd.CommandText += " WHERE A.DLG_ID = B.DLG_ID                  ";
                 cmd.CommandText += "   AND A.DLG_ID = @dlgId                    ";
@@ -211,6 +212,8 @@ namespace TIIZChatBotV3.DB
                     dlg.dlgType = rdr["DLG_TYPE"] as string;
                     dlg.dlgGroup = rdr["DLG_GROUP"] as string;
                     dlg.dlgOrderNo = rdr["DLG_ORDER_NO"] as string;
+                    //2018-04-25 : 제스처 추가
+                    dlg.gesture = Convert.ToInt32(rdr["gesture"]);
 
                     using (SqlConnection conn2 = new SqlConnection(connStr))
                     {
@@ -263,6 +266,9 @@ namespace TIIZChatBotV3.DB
                                 dlgCard.cardValue = rdr2["CARD_VALUE"] as string;
                                 //dlgCard.card_order_no = rdr2["CARD_ORDER_NO"] as string;
                                 dlgCard.card_order_no = Convert.ToInt32(rdr2["CARD_ORDER_NO"]);
+                                //2018-04-25 : 제스처 추가
+                                dlgCard.gesture = dlg.gesture;
+
 
                                 dialogCards.Add(dlgCard);
                             }
