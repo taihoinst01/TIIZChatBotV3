@@ -482,10 +482,11 @@ namespace TIIZChatBotV3.DB
 
                 if (!activity.ChannelId.Equals("facebook"))
                 {
-                    HeroCard plCard = new HeroCard()
+                    UserHeroCard plCard = new UserHeroCard()
                     {
                         Title = dlg.cardTitle,
-                        Text = dlg.cardText
+                        Text = dlg.cardText,
+                        Gesture = dlg.gesture
                     };
                     returnAttachment = plCard.ToAttachment();
                 }
@@ -757,7 +758,8 @@ namespace TIIZChatBotV3.DB
                     {
                         Title = card.cardTitle,
                         Images = cardImages,
-                        Buttons = cardButtons
+                        Buttons = cardButtons,
+                        Gesture = card.gesture //2018-04-24 : 제스처 추가
                     };
                     returnAttachment = plCard.ToAttachment();
                 }
@@ -774,7 +776,8 @@ namespace TIIZChatBotV3.DB
                             Images = cardImages,
                             Buttons = cardButtons,
                             Card_division = cardDiv,
-                            Card_value = cardVal
+                            Card_value = cardVal,
+                            Gesture = card.gesture //2018-04-24 : 제스처 추가
                         };
                         returnAttachment = plCard.ToAttachment();
                     }
@@ -788,7 +791,8 @@ namespace TIIZChatBotV3.DB
                             Images = cardImages,
                             Buttons = cardButtons,
                             Card_division = cardDiv,
-                            Card_value = cardVal
+                            Card_value = cardVal,
+                            Gesture = card.gesture //2018-04-24 : 제스처 추가
                         };
                         returnAttachment = plCard.ToAttachment();
                     }
