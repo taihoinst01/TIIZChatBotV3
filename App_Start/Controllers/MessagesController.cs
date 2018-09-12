@@ -257,7 +257,6 @@ namespace TIIZChatBotV3
             else if (activity.Type == ActivityTypes.Message)
             {
                 //activity.ChannelId = "facebook";
-                DButil.HistoryLog("현재위치사용승인1");
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
                 try
                 {
@@ -266,7 +265,6 @@ namespace TIIZChatBotV3
                     string orgMent = activity.Text;
 
                     //현재위치사용승인
-                    DButil.HistoryLog("현재위치사용승인2");
                     if (orgMent.Contains("current location") || orgMent.Equals("현재위치사용승인"))
                     {
                         if (!orgMent.Contains(':'))
@@ -290,13 +288,13 @@ namespace TIIZChatBotV3
                                 Debug.WriteLine("*regionStr : " + location_result[0] + " " + location_result[1]);
                                 DButil.mapSave(location_result[0], location_result[1]);
                                 queryStr = regionStr + " 시승센터";
-
+                                DButil.HistoryLog("현재위치사용승인1");
                                 Activity reply_brach = activity.CreateReply();
                                 reply_brach.Recipient = activity.From;
                                 reply_brach.Type = "message";
                                 reply_brach.Attachments = new List<Attachment>();
                                 reply_brach.AttachmentLayout = AttachmentLayoutTypes.Carousel;
-
+                                DButil.HistoryLog("현재위치사용승인2");
                                 reply_brach.Attachments.Add(
                                     UserGetHeroCard_location(
                                     "타이호인스트",
@@ -306,7 +304,9 @@ namespace TIIZChatBotV3
                                     location_result[1],
                                     location_result[0])
                                     );
-
+                                DButil.HistoryLog("현재위치사용승인3");
+                                var reply_brach1 = await connector.Conversations.SendToConversationAsync(reply_brach);
+                                DButil.HistoryLog("현재위치사용승인4");
                             }
                             catch
                             {
