@@ -300,7 +300,7 @@ namespace TIIZChatBotV3
                                     "타이호인스트",
                                     "연락처",
                                     "주소",
-                                    new CardImage(url: "https://tiizchatbotv3.azurewebsites.net/image/map/"+ location_result[1] + "."+ location_result[0] + ".png"),
+                                    new CardImage(url: "https://tiizchatbotv3.azurewebsites.net/image/map/"+ location_result[1] + ","+ location_result[0] + ".png"),
                                     new CardAction(ActionTypes.OpenUrl, "타이호인스트", value: "http://www.taihoinst.com/"),
                                     location_result[1],
                                     location_result[0])

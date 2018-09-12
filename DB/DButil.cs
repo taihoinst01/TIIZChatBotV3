@@ -861,11 +861,11 @@ namespace TIIZChatBotV3.DB
             return heroCard.ToAttachment();
         }
 
-        // 지도 이미지 저장
-        // 이미지저장시 clientId,url 상황 맞게 저장
         public static void mapSave(string url1, string url2)
         {
-            string url = "https://openapi.naver.com/v1/map/staticmap.bin?clientId=dXUekyWEBhyYa2zD2s33&url=file:///C:/Users/user/Desktop&crs=EPSG:4326&center=" + url2 + "," + url1 + "&level=10&w=320&h=320&baselayer=default&markers="+ url2 +"," + url1;
+            //string url = "https://openapi.naver.com/v1/map/staticmap.bin?clientId=dXUekyWEBhyYa2zD2s33&url=file:///C:/Users/user/Desktop&crs=EPSG:4326&center=" + url2 + "," + url1 + "&level=10&w=320&h=320&baselayer=default&markers="+ url2 +"," + url1;
+            string url = "https://openapi.naver.com/v1/map/staticmap.bin?clientId=dXUekyWEBhyYa2zD2s33&url=https://tiizchatbotv3.azurewebsites.net&crs=EPSG:4326&center=" + url2 + "," + url1 + "&level=10&w=320&h=320&baselayer=default&markers=" + url2 + "," + url1;
+
             System.Drawing.Image image = DownloadImageFromUrl(url);
 
             string m_strLogPrefix = AppDomain.CurrentDomain.BaseDirectory + @"image\map\";
@@ -874,24 +874,31 @@ namespace TIIZChatBotV3.DB
             string strDir = Path.GetDirectoryName(strPath);
             DirectoryInfo diDir = new DirectoryInfo(strDir);
 
-            //FileInfo fi = new FileInfo(strPath + url2 + "," + url1 + ".png");
-            //if (!fi.Exists)
-            //{
-            //    string fileName = System.IO.Path.Combine(strDir, url2 + "," + url1 + ".png");
-            //    try
-            //    {
-            //        image.Save(fileName);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Debug.WriteLine("* ERROR : " + ex.StackTrace);
-            //    }
-            //}
-            //var urlImg = "https://openapi.naver.com/v1/map/staticmap.bin?clientId=OPCP0Yh0b2IC9r59XaTR&url=http://www.hyundai.com&crs=EPSG:4326&center=" + CarBranchInfo[td].dlgBrXcoo + "," + CarBranchInfo[td].dlgBrYcoo + "&level=12&w=400&h=300&baselayer=default&markers=" + CarBranchInfo[td].dlgBrXcoo + "," + CarBranchInfo[td].dlgBrYcoo;
-            //String fileName = "c:/inetpub/wwwroot/map/" + CarBranchInfo[td].dlgBrXcoo + "," + CarBranchInfo[td].dlgBrYcoo + ".png";
+            HistoryLog("1111");
+            if (!diDir.Exists)
+            {
+                HistoryLog("2222");
+                diDir.Create();
+                diDir = new DirectoryInfo(strDir);
+            }
+            HistoryLog("3333");
+            if (diDir.Exists)
+            {
+                HistoryLog("4444");
+                //string rootPath = @"C:\DownloadedImageFromUrl";
+                string fileName = System.IO.Path.Combine(strDir, url2 +"."+ url1+".png");
+                try
+                {
+                    image.Save(fileName);
+                } catch(Exception ex)
+                {
+                    Debug.WriteLine("***error***" + ex.Message);
+                }
+                
 
-            System.Net.WebClient client = new System.Net.WebClient();
-            client.DownloadFile(url, url2 + "," + url1 + ".png");
+            }
+            HistoryLog("5555");
+
         }
 
         public static System.Drawing.Image DownloadImageFromUrl(string imageUrl)
