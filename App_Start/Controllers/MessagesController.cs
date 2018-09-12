@@ -296,11 +296,12 @@ namespace TIIZChatBotV3
                                 reply_brach.AttachmentLayout = AttachmentLayoutTypes.Carousel;
                                 DButil.HistoryLog("현재위치사용승인2");
                                 reply_brach.Attachments.Add(
-                                    UserGetHeroCard_location(
+                                    DButil.GetHeroCard_Map(
                                     "타이호인스트",
                                     "연락처",
                                     "주소",
                                     new CardImage(url: "https://tiizchatbotv3.azurewebsites.net/image/map/"+ location_result[1] + "."+ location_result[0] + ".png"),
+                                    new CardAction(ActionTypes.OpenUrl, "타이호인스트", value: "http://www.taihoinst.com/"),
                                     location_result[1],
                                     location_result[0])
                                     );
@@ -1811,20 +1812,6 @@ namespace TIIZChatBotV3
                 Buttons = new List<CardAction>() { cardAction },
             };
             return heroCard.ToAttachment();
-        }
-
-        private static Attachment UserGetHeroCard_location(string title, string subtitle, string text, CardImage cardImage, string latitude, string longitude)
-        {
-            var userheroCard = new UserHeroCard
-            {
-                Title = title,
-                Subtitle = subtitle,
-                Text = text,
-                Images = new List<CardImage>() { cardImage },
-                Latitude = latitude,
-                Longitude = longitude,
-            };
-            return userheroCard.ToAttachment();
         }
     }
 }

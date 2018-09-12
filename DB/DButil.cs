@@ -845,7 +845,7 @@ namespace TIIZChatBotV3.DB
             return heroCard.ToAttachment();
         }
         //지도 맵 추가
-        public static Attachment GetHeroCard_Map(string title, string subtitle, string text, CardImage cardImage, /*CardAction cardAction*/ List<CardAction> buttons, string latitude, string longitude)
+        public static Attachment GetHeroCard_Map(string title, string subtitle, string text, CardImage cardImage, CardAction cardAction /*List<CardAction> buttons*/, string latitude, string longitude)
         {
             var heroCard = new UserHeroCard
             {
@@ -853,7 +853,7 @@ namespace TIIZChatBotV3.DB
                 Subtitle = subtitle,
                 Text = text,
                 Images = new List<CardImage>() { cardImage },
-                Buttons = buttons,
+                Buttons = new List<CardAction>() { cardAction },
                 Latitude = latitude,
                 Longitude = longitude,
             };
@@ -874,13 +874,24 @@ namespace TIIZChatBotV3.DB
             string strDir = Path.GetDirectoryName(strPath);
             DirectoryInfo diDir = new DirectoryInfo(strDir);
 
-            FileInfo fi = new FileInfo(strPath + url2 + "," + url1 + ".png");
-            if (!fi.Exists)
-            {
-                string fileName = System.IO.Path.Combine(strDir, url2 + "," + url1 + ".png");
-                image.Save(fileName);
-            }
+            //FileInfo fi = new FileInfo(strPath + url2 + "," + url1 + ".png");
+            //if (!fi.Exists)
+            //{
+            //    string fileName = System.IO.Path.Combine(strDir, url2 + "," + url1 + ".png");
+            //    try
+            //    {
+            //        image.Save(fileName);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Debug.WriteLine("* ERROR : " + ex.StackTrace);
+            //    }
+            //}
+            //var urlImg = "https://openapi.naver.com/v1/map/staticmap.bin?clientId=OPCP0Yh0b2IC9r59XaTR&url=http://www.hyundai.com&crs=EPSG:4326&center=" + CarBranchInfo[td].dlgBrXcoo + "," + CarBranchInfo[td].dlgBrYcoo + "&level=12&w=400&h=300&baselayer=default&markers=" + CarBranchInfo[td].dlgBrXcoo + "," + CarBranchInfo[td].dlgBrYcoo;
+            //String fileName = "c:/inetpub/wwwroot/map/" + CarBranchInfo[td].dlgBrXcoo + "," + CarBranchInfo[td].dlgBrYcoo + ".png";
 
+            System.Net.WebClient client = new System.Net.WebClient();
+            client.DownloadFile(url, url2 + "," + url1 + ".png");
         }
 
         public static System.Drawing.Image DownloadImageFromUrl(string imageUrl)
