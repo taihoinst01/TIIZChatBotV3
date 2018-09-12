@@ -874,7 +874,7 @@ namespace TIIZChatBotV3.DB
             string strDir = Path.GetDirectoryName(strPath);
             DirectoryInfo diDir = new DirectoryInfo(strDir);
 
-            FileInfo fi = new FileInfo(strDir + url2 + "." + url1 + ".png");
+            FileInfo fi = new FileInfo(strPath + url2 + "." + url1 + ".png");
             if (!fi.Exists)
             {
                 string fileName = System.IO.Path.Combine(strDir, url2 + "." + url1 + ".png");
