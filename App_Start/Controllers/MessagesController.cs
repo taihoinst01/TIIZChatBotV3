@@ -290,6 +290,23 @@ namespace TIIZChatBotV3
                                 Debug.WriteLine("*regionStr : " + location_result[0] + " " + location_result[1]);
                                 DButil.mapSave(location_result[0], location_result[1]);
                                 queryStr = regionStr + " 시승센터";
+
+                                Activity reply_brach = activity.CreateReply();
+                                reply_brach.Recipient = activity.From;
+                                reply_brach.Type = "message";
+                                reply_brach.Attachments = new List<Attachment>();
+                                reply_brach.AttachmentLayout = AttachmentLayoutTypes.Carousel;
+
+                                reply_brach.Attachments.Add(
+                                    UserGetHeroCard_location(
+                                    "타이호인스트",
+                                    "연락처",
+                                    "주소",
+                                    new CardImage(url: "https://tiizchatbotv3.azurewebsites.net/image/map/"+ location_result[1] + "."+ location_result[0] + ".png"),
+                                    location_result[1],
+                                    location_result[0])
+                                    );
+
                             }
                             catch
                             {
@@ -1794,6 +1811,20 @@ namespace TIIZChatBotV3
                 Buttons = new List<CardAction>() { cardAction },
             };
             return heroCard.ToAttachment();
+        }
+
+        private static Attachment UserGetHeroCard_location(string title, string subtitle, string text, CardImage cardImage, string latitude, string longitude)
+        {
+            var userheroCard = new UserHeroCard
+            {
+                Title = title,
+                Subtitle = subtitle,
+                Text = text,
+                Images = new List<CardImage>() { cardImage },
+                Latitude = latitude,
+                Longitude = longitude,
+            };
+            return userheroCard.ToAttachment();
         }
     }
 }

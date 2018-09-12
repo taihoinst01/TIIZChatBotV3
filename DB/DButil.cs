@@ -861,6 +861,8 @@ namespace TIIZChatBotV3.DB
             return heroCard.ToAttachment();
         }
 
+        // 지도 이미지 저장
+        // 이미지저장시 clientId,url 상황 맞게 저장
         public static void mapSave(string url1, string url2)
         {
             string url = "https://openapi.naver.com/v1/map/staticmap.bin?clientId=dXUekyWEBhyYa2zD2s33&url=file:///C:/Users/user/Desktop&crs=EPSG:4326&center=" + url2 + "," + url1 + "&level=10&w=320&h=320&baselayer=default&markers="+ url2 +"," + url1;
@@ -872,23 +874,12 @@ namespace TIIZChatBotV3.DB
             string strDir = Path.GetDirectoryName(strPath);
             DirectoryInfo diDir = new DirectoryInfo(strDir);
 
-            HistoryLog("1111");
-            if (!diDir.Exists)
+            FileInfo fi = new FileInfo(strDir + url2 + "." + url1 + ".png");
+            if (!fi.Exists)
             {
-                HistoryLog("2222");
-                diDir.Create();
-                diDir = new DirectoryInfo(strDir);
-            }
-            HistoryLog("3333");
-            if (diDir.Exists)
-            {
-                HistoryLog("4444");
-                //string rootPath = @"C:\DownloadedImageFromUrl";
-                string fileName = System.IO.Path.Combine(strDir, url2 +"."+ url1+".png");
+                string fileName = System.IO.Path.Combine(strDir, url2 + "." + url1 + ".png");
                 image.Save(fileName);
-
             }
-            HistoryLog("5555");
 
         }
 
