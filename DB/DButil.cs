@@ -861,9 +861,13 @@ namespace TIIZChatBotV3.DB
             return heroCard.ToAttachment();
         }
 
+        //현재 위치 이미지 저장
+        //clientId 및 URL 네이버개발자센터에서 확인 및 수정
         public static void mapSave(string url1, string url2)
         {
+            //로컬테스트
             //string url = "https://openapi.naver.com/v1/map/staticmap.bin?clientId=dXUekyWEBhyYa2zD2s33&url=file:///C:/Users/user/Desktop&crs=EPSG:4326&center=" + url2 + "," + url1 + "&level=10&w=320&h=320&baselayer=default&markers="+ url2 +"," + url1;
+            //웹테스트
             string url = "https://openapi.naver.com/v1/map/staticmap.bin?clientId=dXUekyWEBhyYa2zD2s33&url=https://tiizchatbotv3.azurewebsites.net&crs=EPSG:4326&center=" + url2 + "," + url1 + "&level=10&w=320&h=320&baselayer=default&markers=" + url2 + "," + url1;
 
             System.Drawing.Image image = DownloadImageFromUrl(url);
@@ -874,18 +878,11 @@ namespace TIIZChatBotV3.DB
             string strDir = Path.GetDirectoryName(strPath);
             DirectoryInfo diDir = new DirectoryInfo(strDir);
 
-            HistoryLog("1111");
-            if (!diDir.Exists)
+            //파일 있는지 확인 있을때(true), 없으면(false)
+            FileInfo fileInfo = new FileInfo(strPath + url2 + "," + url1 + ".png");
+
+            if (!fileInfo.Exists)
             {
-                HistoryLog("2222");
-                diDir.Create();
-                diDir = new DirectoryInfo(strDir);
-            }
-            HistoryLog("3333");
-            if (diDir.Exists)
-            {
-                HistoryLog("4444");
-                //string rootPath = @"C:\DownloadedImageFromUrl";
                 string fileName = System.IO.Path.Combine(strDir, url2 +","+ url1+".png");
                 try
                 {
@@ -894,10 +891,7 @@ namespace TIIZChatBotV3.DB
                 {
                     Debug.WriteLine("***error***" + ex.Message);
                 }
-                
-
             }
-            HistoryLog("5555");
 
         }
 

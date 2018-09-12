@@ -278,7 +278,6 @@ namespace TIIZChatBotV3
                             //위도경도에 따른 값 출력
                             try
                             {
-                                string regionStr = "";
                                 string location = orgMent.Replace("current location:", "");
                                 //테스트용
                                 //string location = "129.0929788:35.2686635";
@@ -287,14 +286,11 @@ namespace TIIZChatBotV3
                                 DButil.HistoryLog("*regionStr : " + location_result[0] + " " + location_result[1]);
                                 Debug.WriteLine("*regionStr : " + location_result[0] + " " + location_result[1]);
                                 DButil.mapSave(location_result[0], location_result[1]);
-                                queryStr = regionStr + " 시승센터";
-                                DButil.HistoryLog("현재위치사용승인1");
                                 Activity reply_brach = activity.CreateReply();
                                 reply_brach.Recipient = activity.From;
                                 reply_brach.Type = "message";
                                 reply_brach.Attachments = new List<Attachment>();
                                 reply_brach.AttachmentLayout = AttachmentLayoutTypes.Carousel;
-                                DButil.HistoryLog("현재위치사용승인2");
                                 reply_brach.Attachments.Add(
                                     DButil.GetHeroCard_Map(
                                     "타이호인스트",
@@ -305,9 +301,9 @@ namespace TIIZChatBotV3
                                     location_result[1],
                                     location_result[0])
                                     );
-                                DButil.HistoryLog("현재위치사용승인3");
                                 var reply_brach1 = await connector.Conversations.SendToConversationAsync(reply_brach);
-                                DButil.HistoryLog("현재위치사용승인4");
+                                response = Request.CreateResponse(HttpStatusCode.OK);
+                                return response;
                             }
                             catch
                             {
