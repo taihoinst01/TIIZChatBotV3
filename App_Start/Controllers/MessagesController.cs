@@ -230,19 +230,19 @@ namespace TIIZChatBotV3
                 }
 
                 //현재위치사용승인 테스트
-                Activity replyLocation = activity.CreateReply();
-                replyLocation.Recipient = activity.From;
-                replyLocation.Type = "message";
-                replyLocation.Attachments = new List<Attachment>();
-                replyLocation.AttachmentLayout = AttachmentLayoutTypes.Carousel;
+                //Activity replyLocation = activity.CreateReply();
+                //replyLocation.Recipient = activity.From;
+                //replyLocation.Type = "message";
+                //replyLocation.Attachments = new List<Attachment>();
+                //replyLocation.AttachmentLayout = AttachmentLayoutTypes.Carousel;
 
-                replyLocation.Attachments.Add(
-                    GetHeroCard_facebookMore(
-                    "", "",
-                    "현재 위치 사용 승인",
-                    new CardAction(ActionTypes.ImBack, "현재 위치 사용 승인", value: MessagesController.queryStr))
-                );
-                await connector.Conversations.SendToConversationAsync(replyLocation);
+                //replyLocation.Attachments.Add(
+                //    GetHeroCard_facebookMore(
+                //    "", "",
+                //    "현재 위치 사용 승인",
+                //    new CardAction(ActionTypes.ImBack, "현재 위치 사용 승인", value: MessagesController.queryStr))
+                //);
+                //await connector.Conversations.SendToConversationAsync(replyLocation);
 
                 DateTime endTime = DateTime.Now;
                 Debug.WriteLine("프로그램 수행시간 : {0}/ms", ((endTime - startTime).Milliseconds));
