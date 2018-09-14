@@ -195,8 +195,8 @@ namespace TIIZChatBotV3.DB
                 cmd.CommandText += " 	A.DLG_LANG,                             ";
                 cmd.CommandText += " 	A.DLG_TYPE,                             ";
                 cmd.CommandText += " 	A.DLG_ORDER_NO,                         ";
-                cmd.CommandText += " 	A.DLG_GROUP                             ";
-                cmd.CommandText += " 	B.GESTURE                               ";
+                cmd.CommandText += " 	A.DLG_GROUP,                            ";
+                cmd.CommandText += " 	ISNULL(B.GESTURE,0) AS GESTURE          ";
                 cmd.CommandText += " FROM TBL_DLG A, TBL_DLG_RELATION_LUIS B    ";
                 cmd.CommandText += " WHERE A.DLG_ID = B.DLG_ID                  ";
                 cmd.CommandText += "   AND A.DLG_ID = @dlgId                    ";
@@ -213,7 +213,7 @@ namespace TIIZChatBotV3.DB
                     dlg.dlgGroup = rdr["DLG_GROUP"] as string;
                     dlg.dlgOrderNo = rdr["DLG_ORDER_NO"] as string;
                     //2018-04-25 : 제스처 추가
-                    dlg.gesture = Convert.ToInt32(rdr["gesture"]);
+                    dlg.gesture = Convert.ToInt32(rdr["GESTURE"]);
 
                     using (SqlConnection conn2 = new SqlConnection(connStr))
                     {
@@ -526,6 +526,53 @@ namespace TIIZChatBotV3.DB
             return result;
         }
 
+        public CacheList CacheDataFromIntent(string intent)
+        {
+            SqlDataReader rdr = null;
+            CacheList result = new CacheList();
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText += "SELECT LUIS_ID, LUIS_INTENT, LUIS_ENTITIES, '' AS LUIS_INTENT_SCORE FROM TBL_DLG_RELATION_LUIS WHERE LUIS_INTENT=@intent";
+
+                cmd.Parameters.AddWithValue("@intent", intent);
+                rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                /*
+                if (rdr.Read())
+                {
+                    Debug.WriteLine("* YES - TBL_QUERY_ANALYSIS_RESULT");
+                }
+                else
+                {
+                    Debug.WriteLine("* NO - TBL_QUERY_ANALYSIS_RESULT");
+                }
+                */
+
+                while (rdr.Read())
+                {
+                    string luisId = rdr["LUIS_ID"] as String;
+                    string intentId = rdr["LUIS_INTENT"] as String;
+                    string entitiesId = rdr["LUIS_ENTITIES"] as String;
+                    string luisScore = rdr["LUIS_INTENT_SCORE"] as String;
+                    //string luisEntitiesValue = "" as String;
+
+                    result.luisId = luisId;
+                    result.luisIntent = intentId;
+                    result.luisEntities = entitiesId;
+                    result.luisScore = luisScore;
+                    //result.luisEntitiesValue = luisEntitiesValue;
+
+
+                    Debug.WriteLine("Yes rdr | intentId : " + intentId + " | entitiesId : " + entitiesId + " | luisScore : " + luisScore);
+                }
+
+            }
+            return result;
+        }
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 이부분(수정해야함)
         public String ContextChk(string luisIntent)
         {
