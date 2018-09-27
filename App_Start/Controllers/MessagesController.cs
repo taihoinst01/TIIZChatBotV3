@@ -63,6 +63,8 @@ namespace TIIZChatBotV3
         public static string luisId = "";
         public static string luisIntent = "";
         public static string luisEntities = "";
+        public static string luisIntentScore = "";
+        public static string dlgId = "";        
         public static string queryStr = "";
         public static DateTime startTime;
 
@@ -364,6 +366,7 @@ namespace TIIZChatBotV3
                         luisId = cacheList.luisId;
                         luisIntent = cacheList.luisIntent;
                         luisEntities = cacheList.luisEntities;
+                        luisIntentScore = cacheList.luisScore;
 
                         DButil.HistoryLog("luisId : " + luisId);
                         DButil.HistoryLog("luisIntent : " + luisIntent);
@@ -424,10 +427,11 @@ namespace TIIZChatBotV3
                         {
 
                             //context.Call(new CommonDialog("", MessagesController.queryStr), this.ResumeAfterOptionDialog);
-
+                            dlgId = "";
                             for (int m = 0; m < MessagesController.relationList.Count; m++)
                             {
                                 DialogList dlg = db.SelectDialog(MessagesController.relationList[m].dlgId);
+                                dlgId += Convert.ToString(dlg.dlgId) + ",";
                                 Activity commonReply = activity.CreateReply();
                                 Attachment tempAttachment = new Attachment();
                                 DButil.HistoryLog("dlg.dlgType : " + dlg.dlgType);
@@ -564,7 +568,7 @@ namespace TIIZChatBotV3
 
                         //}
                         //history table insert
-                        db.insertHistory(activity.Conversation.Id, activity.ChannelId, ((endTime - MessagesController.startTime).Milliseconds));
+                        db.insertHistory(activity.Conversation.Id, activity.ChannelId, ((endTime - MessagesController.startTime).Milliseconds), luisIntent, luisEntities, luisIntentScore, dlgId);
                         replyresult = "";
                         recommendResult = "";
                     }
@@ -584,15 +588,14 @@ namespace TIIZChatBotV3
                     //sorryReply.AttachmentLayout = AttachmentLayoutTypes.Carousel;
 
                     List<TextList> text = new List<TextList>();
-                    if (sorryMessageCheck == 0)
+                    if (sorryMessageCnt == 1)
                     {
-                        text = db.SelectSorryDialogText("8");
+                        text = db.SelectSorryDialogText("5");
                     }
                     else
                     {
-                        //text = db.SelectSorryDialogText("6");
+                        text = db.SelectSorryDialogText("6");
                     }
-                    text = db.SelectSorryDialogText("5");
 
                     for (int i = 0; i < text.Count; i++)
                     {
@@ -610,7 +613,7 @@ namespace TIIZChatBotV3
 
                     DateTime endTime = DateTime.Now;
                     int dbResult = db.insertUserQuery();
-                    db.insertHistory(activity.Conversation.Id, activity.ChannelId, ((endTime - MessagesController.startTime).Milliseconds));
+                    db.insertHistory(activity.Conversation.Id, activity.ChannelId, ((endTime - MessagesController.startTime).Milliseconds), luisIntent, luisEntities, luisIntentScore, "");
                     replyresult = "";
                     recommendResult = "";
                 }
@@ -663,16 +666,6 @@ namespace TIIZChatBotV3
             return null;
         }
 
-        private static Attachment GetHeroCard_facebookMore(string title, string subtitle, string text, CardAction cardAction)
-        {
-            var heroCard = new UserHeroCard
-            {
-                Title = title,
-                Subtitle = subtitle,
-                Text = text,
-                Buttons = new List<CardAction>() { cardAction },
-            };
-            return heroCard.ToAttachment();
-        }
+
     }
 }

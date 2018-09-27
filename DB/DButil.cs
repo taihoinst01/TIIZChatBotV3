@@ -921,5 +921,17 @@ namespace TIIZChatBotV3.DB
             return image;
         }
 
+        public static Attachment GetHeroCard_facebookMore(string title, string subtitle, string text, CardAction cardAction)
+        {
+            var heroCard = new UserHeroCard
+            {
+                Title = title,
+                Subtitle = subtitle,
+                Text = text,
+                Buttons = new List<CardAction>() { cardAction },
+            };
+            return heroCard.ToAttachment();
+        }
+
     }
 }
