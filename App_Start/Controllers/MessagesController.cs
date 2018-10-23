@@ -166,12 +166,6 @@ namespace TIIZChatBotV3
                         case "MicrosoftAppPassword":
                             MicrosoftAppPassword = confList[i].cnfValue;
                             break;
-                        case "QUOTE":
-                            QUOTE = confList[i].cnfValue;
-                            break;
-                        case "TESTDRIVE":
-                            TESTDRIVE = confList[i].cnfValue;
-                            break;
                         case "LUIS_SCORE_LIMIT":
                             LUIS_SCORE_LIMIT = confList[i].cnfValue;
                             break;
@@ -482,6 +476,13 @@ namespace TIIZChatBotV3
                                         {
                                             commonReply.Attachments.Add(tempAttachment);
                                         }
+
+                                        //2018-04-19:KSO:Carousel 만드는부분 추가
+                                        if (tempcard.card_order_no > 1)
+                                        {
+                                            commonReply.AttachmentLayout = AttachmentLayoutTypes.Carousel;
+                                        }
+
                                     }
                                 }
                                 else

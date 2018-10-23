@@ -498,7 +498,7 @@ namespace TIIZChatBotV3.DB
         {
             SqlDataReader rdr = null;
             CacheList result = new CacheList();
-
+            Debug.WriteLine("CacheChk() parameter : " + orgMent);
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 conn.Open();
