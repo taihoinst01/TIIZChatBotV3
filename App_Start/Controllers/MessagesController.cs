@@ -368,7 +368,7 @@ namespace TIIZChatBotV3
 
                         String fullentity = db.SearchCommonEntities;
                         DButil.HistoryLog("fullentity : " + fullentity);
-                        if (apiFlag.Equals("COMMON"))
+                        if (apiFlag.Equals("COMMON") && luisIntent != null) //MTC 관련 수정(&& luisIntent != null 추가)
                         {
                             relationList = db.DefineTypeChkSpare(cacheList.luisIntent, cacheList.luisEntities);
                         }
