@@ -808,7 +808,7 @@ namespace TIIZChatBotV3.DB
                 cmd.CommandText += "  FROM TBL_DLG_RELATION_LUIS A, TBL_DLG B                                                    ";
                 cmd.CommandText += " WHERE A.DLG_ID = B.DLG_ID                                               ";
                 //cmd.CommandText += " WHERE LUIS_INTENT = @intentId                                                 ";
-                //cmd.CommandText += "   AND A.LUIS_ENTITIES = @entities                                                ";//MTC 관련 수정(현재 라인 주석 처리)
+                cmd.CommandText += "   AND A.LUIS_ENTITIES = @entities                                                ";
                 //cmd.CommandText += "   AND LUIS_ID = @luisId                                                        ";
 
                 if (intentId != null)
