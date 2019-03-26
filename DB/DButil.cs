@@ -10,6 +10,8 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace TIIZChatBotV3.DB
 {
@@ -935,6 +937,45 @@ namespace TIIZChatBotV3.DB
             };
             return heroCard.ToAttachment();
         }
+
+        //  QnAMaker 
+        public String GetQnAMaker(string query)
+        {
+            var task = Task<string>.Run(() => GetQnAMakerBot(query));
+            var msg = (string)task.Result;
+            return msg;
+        }
+
+        public static async Task<string> GetQnAMakerBot(string query)
+        {
+            //QnAMaker
+            var url =
+               "https://mtcqna.azurewebsites.net/qnamaker/knowledgebases/4fb5bc2f-2878-4399-9c25-5bcd2f9b6e78/generateAnswer";
+            var httpContent = new StringContent("{'question':'" + query + "'}", Encoding.UTF8, "application/json");
+
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("Authorization", "EndpointKey 5e7a264f-50f5-41eb-851c-8793029fd3eb");
+            var httpResponse = await httpClient.PostAsync(url, httpContent);
+            var httpResponseMessage = await httpResponse.Content.ReadAsStringAsync();
+            dynamic httpResponseJson = JsonConvert.DeserializeObject(httpResponseMessage);
+            //var replyMessage = (string)httpResponseJson.answers[0].answer;
+            var replyMessage = "";
+
+            //점수제한
+            if (httpResponseJson.answers[0].score > 90.00)
+            {
+                replyMessage = httpResponseJson.answers[0].answer;
+                HistoryLog("GetQnAMakerBot replyMessage====" + replyMessage);
+            }
+            else
+            {
+                replyMessage = "No good match";
+            }
+
+            return replyMessage;
+
+        }
+
 
     }
 }

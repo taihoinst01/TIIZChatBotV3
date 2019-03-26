@@ -321,6 +321,9 @@ namespace TIIZChatBotV3
                     CardList bannedMsg = db.BannedChk(orgMent);
                     Debug.WriteLine("* bannedMsg : " + bannedMsg.cardText);//해당금칙어에 대한 답변
 
+                    //  QnA Maker 확인 - START
+                    string qnAMakerAnswer = dbutil.GetQnAMaker(orgMent);
+
                     if (bannedMsg.cardText != null)
                     {
                         Activity reply_ment = activity.CreateReply();
@@ -332,8 +335,36 @@ namespace TIIZChatBotV3
                         response = Request.CreateResponse(HttpStatusCode.OK);
                         return response;
                     }
+                    
+                    else if (!qnAMakerAnswer.Contains("No good match"))
+                    {
+                        Activity qnAMakerReply = activity.CreateReply();
+
+                        qnAMakerReply.Recipient = activity.From;
+                        qnAMakerReply.Type = "message";
+                        qnAMakerReply.Attachments = new List<Attachment>();
+
+                        List<CardList> text = new List<CardList>();
+
+                        UserHeroCard plCard = new UserHeroCard()
+                        {
+                            //Title = "QnA",
+                            Text = qnAMakerAnswer
+                        };
+
+                        Attachment plAttachment = plCard.ToAttachment();
+                        qnAMakerReply.Attachments.Add(plAttachment);
+
+                        SetActivity(qnAMakerReply);
+
+                        replyresult = "Q";
+                        luisIntent = "QnA";
+
+                    }
+
                     else
                     {
+                                                
                         queryStr = orgMent;
                         //인텐트 엔티티 검출
                         //캐시 체크
@@ -518,6 +549,7 @@ namespace TIIZChatBotV3
                         else
                         {
                             Debug.WriteLine("no dialogue-------------");
+                            Debug.WriteLine("luisIntent : " + luisIntent);
                             string newUserID = activity.Conversation.Id;
                             string beforeUserID = "";
                             string beforeMessgaeText = "";
