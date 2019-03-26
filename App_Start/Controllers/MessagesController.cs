@@ -183,8 +183,8 @@ namespace TIIZChatBotV3
                 DButil.HistoryLog("* DB conn : " + activity.Type);
 
                 //초기 다이얼로그 호출
-                List<DialogList> dlg = db.SelectInitDialog(activity.ChannelId);
-
+                DButil.HistoryLog("초기 인사말 시작 ");
+                List<DialogList> dlg = db.SelectInitDialog(activity.ChannelId); 
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
 
                 foreach (DialogList dialogs in dlg)
@@ -224,6 +224,7 @@ namespace TIIZChatBotV3
                             initReply.Attachments.Add(tempAttachment);
                         }
                     }
+                    DButil.HistoryLog("초기 인사말 종료 ");
                     await connector.Conversations.SendToConversationAsync(initReply);
                 }
 
