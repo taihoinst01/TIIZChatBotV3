@@ -321,8 +321,9 @@ namespace TIIZChatBotV3
                     CardList bannedMsg = db.BannedChk(orgMent);
                     Debug.WriteLine("* bannedMsg : " + bannedMsg.cardText);//해당금칙어에 대한 답변
 
-                    //  QnA Maker 확인 - START
-                    string qnAMakerAnswer = dbutil.GetQnAMaker(orgMent);
+                    //  QnA Maker 확인 - START         
+                    string qnaOrgMent = orgMent.Replace("'", "\""); // singlequote problem..
+                    string qnAMakerAnswer = dbutil.GetQnAMaker(qnaOrgMent);
 
                     if (bannedMsg.cardText != null)
                     {
@@ -338,6 +339,8 @@ namespace TIIZChatBotV3
                     
                     else if (!qnAMakerAnswer.Contains("No good match"))
                     {
+                        Debug.WriteLine("* qnaOrgMent : " + qnaOrgMent);
+                        Debug.WriteLine("* qnAMakerAnswer : " + qnAMakerAnswer);
                         Activity qnAMakerReply = activity.CreateReply();
 
                         qnAMakerReply.Recipient = activity.From;
