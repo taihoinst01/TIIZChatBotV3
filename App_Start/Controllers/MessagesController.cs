@@ -353,7 +353,8 @@ namespace TIIZChatBotV3
                         UserHeroCard plCard = new UserHeroCard()
                         {
                             //Title = "QnA",
-                            Text = qnAMakerAnswer
+                            Text = qnAMakerAnswer,
+                            Gesture = '9'
                         };
 
                         Attachment plAttachment = plCard.ToAttachment();
