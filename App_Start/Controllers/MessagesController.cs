@@ -354,7 +354,7 @@ namespace TIIZChatBotV3
                         {
                             //Title = "QnA",
                             Text = qnAMakerAnswer,
-                            Gesture = '9'
+                            Gesture = 9
                         };
 
                         Attachment plAttachment = plCard.ToAttachment();
